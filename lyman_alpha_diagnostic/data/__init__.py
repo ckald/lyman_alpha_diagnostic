@@ -1,3 +1,5 @@
+from pkg_resources import resource_filename
+
 import pandas as pd
 import numpy as np
 
@@ -14,7 +16,7 @@ experiment_binning = {  # km/s
 
 def import_viel_data():
     """ Import power spectrum data by Viel et al. 2013 """
-    filename = r'powerspectrahiresmike_final.dat'
+    filename = resource_filename(__name__, 'powerspectrahiresmike_final.dat')
     data = pd.read_csv(
         filename,
         sep='\s+',
@@ -33,7 +35,7 @@ def import_viel_data():
 
 def import_boera_data():
     """ Import power spectrum data by Boera et al. 2018 """
-    filename = r'boera.dat'
+    filename = resource_filename(__name__, 'boera.dat')
     data = pd.read_csv(
         filename,
         sep='\s+',
@@ -52,7 +54,8 @@ def import_boera_data():
 def load_viel_icovmat():
     """ Import inverse covariance matrix by Viel et al. 2013 """
 
-    lines = open('icovmat.txt', 'r').readlines()
+    filename = resource_filename(__name__, 'icovmat.txt')
+    lines = open(filename, 'r').readlines()
     invcovmatrix = []
     for line in lines[8:]:
         invcovmatrix.append([float(item) for item in line.split()])
@@ -84,7 +87,6 @@ def plot_viel_data(ax, data, redshift):
     """ Plot data points with errors by Viel et al. 2013
         `dataz` is an output of `import_viel_data` filtered by redshfit. """
 
-
     # Remove large scale biased points [Viel et al. 2013]
     dataz = dict(list(data[data['log10 k'] > -2.4].groupby('z')))
     dataz = dataz[redshift]
@@ -92,12 +94,12 @@ def plot_viel_data(ax, data, redshift):
     if 'MIKE val' in dataz:
         ax.errorbar(10**dataz['log10 k'], dataz['MIKE val'],
                     yerr=dataz['MIKE err'],
-                    capthick=1, elinewidth=1, ls=''
+                    capthick=1, elinewidth=1, ls='',
                     capsize=5, marker='o', label=r'MIKE', color='r')
     if 'HIRES val' in dataz:
         ax.errorbar(10**dataz['log10 k'], dataz['HIRES val'],
                     yerr=dataz['HIRES err'],
-                    capthick=1, elinewidth=1, ls=''
+                    capthick=1, elinewidth=1, ls='',
                     capsize=5, marker='o', label=r'HIRES', color='b')
 
     return ax

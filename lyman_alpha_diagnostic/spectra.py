@@ -11,7 +11,7 @@ from scipy.ndimage.filters import gaussian_filter1d
 from linetools.spectra.xspectrum1d import XSpectrum1D
 import astropy.units as u
 
-from utils import repeat
+from .utils import repeat
 
 
 def read_los(specdata, key='h1/Flux'):
