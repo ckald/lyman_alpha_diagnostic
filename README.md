@@ -1,1 +1,0 @@
-# lyman_alpha_diagnostic
