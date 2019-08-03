@@ -3,8 +3,6 @@
 
 """The setup script."""
 
-from setuptools import setup, find_packages
-
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
@@ -47,8 +45,7 @@ setup(
     include_package_data=True,
     keywords='lyman_alpha_diagnostic',
     name='lyman_alpha_diagnostic',
-    packages=find_packages(include=['lyman_alpha_diagnostic',
-                                    'lyman_alpha_diagnostic.*']),
+    packages=['lyman_alpha_diagnostic', 'lyman_alpha_diagnostic.data'],
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
